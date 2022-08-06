@@ -1,0 +1,49 @@
+{
+  "heroes": [
+    {
+      "id": 2,
+      "name": "Неизвестный герой",
+      "description": "Скрывающийся в тени",
+      "element": "wind"
+    },
+    {
+      "id": 3,
+      "name": "Морской герой",
+      "description": "Как аквамен, но не из DC",
+      "element": "water"
+    },
+    {
+      "id": "06f6e00e-d1b7-4886-b1ef-fc070a749623",
+      "name": "Sonya",
+      "description": "Dushnit ohnem",
+      "element": "fire"
+    }
+  ],
+  "filters": [
+    {
+      "value": "all",
+      "text": "Все",
+      "className": "btn-outline-dark"
+    },
+    {
+      "value": "fire",
+      "text": "Огонь",
+      "className": "btn-danger"
+    },
+    {
+      "value": "water",
+      "text": "Вода",
+      "className": "btn-primary"
+    },
+    {
+      "value": "wind",
+      "text": "Ветер",
+      "className": "btn-success"
+    },
+    {
+      "value": "earth",
+      "text": "Земля",
+      "className": "btn-secondary"
+    }
+  ]
+}
