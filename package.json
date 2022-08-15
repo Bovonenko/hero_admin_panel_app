@@ -2,6 +2,9 @@
   "name": "hero_admin_panel",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.14.0"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^4.2.4",
@@ -20,8 +23,8 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "concurrently \"react-scripts start\" \"npx json-server heroes.json --port 3001\"",
-    "build": "react-scripts build",
+    "start-dev": "concurrently \"react-scripts start\" \"npx json-server heroes.json --port 3001\"",
+    "start": "serve -s build","build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
