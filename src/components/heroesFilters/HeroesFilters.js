@@ -7,7 +7,7 @@ import { filtersFetching, filtersFetched, filtersFetchingError, activeFilterChan
 
 import { v4 as uuidv4 } from 'uuid';
 import Spinner from '../spinner/Spinner';
-const classNames = require('classnames');
+
 // Задача для этого компонента:
 // Фильтры должны формироваться на основании загруженных данных
 // Фильтры должны отображать только нужных героев при выборе
