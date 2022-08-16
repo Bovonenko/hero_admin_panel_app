@@ -24,7 +24,8 @@
   },
   "scripts": {
     "start-dev": "concurrently \"react-scripts start\" \"npx json-server heroes.json --port 3001\"",
-    "start": "serve -s build","build": "react-scripts build",
+    "start": "serve -s build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
