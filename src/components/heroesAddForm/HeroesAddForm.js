@@ -56,7 +56,7 @@ const HeroesAddForm = () => {
                     values.id = uuidv4();
                     const newHero = JSON.parse(JSON.stringify(values, null, 2))
                     
-                    request('http://localhost:3001/heroes', 'POST', JSON.stringify(values))
+                    request('https://my-cool-dbase.herokuapp.com/heroes', 'POST', JSON.stringify(values))
                         .then(res => console.log(res, 'Successfully sent'))
                         .then(dispatch(heroCreated(newHero)))
                         .then(resetForm())

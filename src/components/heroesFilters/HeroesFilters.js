@@ -22,7 +22,7 @@ const HeroesFilters = () => {
 
     useEffect(() => {
         dispatch(filtersFetching());
-        request('http://localhost:3001/filters')
+        request('https://my-cool-dbase.herokuapp.com/filters')
             .then(data => dispatch(filtersFetched(data)))
             .catch(() => dispatch(filtersFetchingError()))
             
