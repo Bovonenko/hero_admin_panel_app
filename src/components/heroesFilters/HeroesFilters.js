@@ -2,7 +2,7 @@ import { useHttp } from '../../hooks/http.hook';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { filtersFetching, filtersFetched, filtersFetchingError, activeFilterChanged } from '../../actions';
+import { fetchFilters, activeFilterChanged } from '../../actions';
 
 import { v4 as uuidv4 } from 'uuid';
 import Spinner from '../spinner/Spinner';
@@ -21,11 +21,8 @@ const HeroesFilters = () => {
     const {request} = useHttp();
 
     useEffect(() => {
-        dispatch(filtersFetching());
-        request('https://my-cool-dbase.herokuapp.com/filters')
-            .then(data => dispatch(filtersFetched(data)))
-            .catch(() => dispatch(filtersFetchingError()))
-            
+        dispatch(fetchFilters(request));
+
         // eslint-disable-next-line
     }, [])
 

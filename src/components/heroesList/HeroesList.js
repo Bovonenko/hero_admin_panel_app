@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { heroesFetching, heroesFetched, heroesFetchingError, heroDeleted } from '../../actions';
+import { fetchHeroes, heroDeleted } from '../../actions';
 
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
@@ -38,10 +38,7 @@ const HeroesList = () => {
     const {request} = useHttp();
 
     useEffect(() => {
-        dispatch('HEROES_FETCHING'); 
-        request("https://my-cool-dbase.herokuapp.com/heroes")
-            .then(data => dispatch(heroesFetched(data)))
-            .catch(() => dispatch(heroesFetchingError()))
+        dispatch(fetchHeroes(request)); 
 
         // eslint-disable-next-line
     }, []);
