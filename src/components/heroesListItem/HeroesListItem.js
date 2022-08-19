@@ -25,7 +25,7 @@ const HeroesListItem = ({name, description, element, onDelete}) => {
             className={`card flex-row mb-4 shadow-lg text-white ${elementClassName}`}>
             <img src="https://www.kindpng.com/picc/m/52-526072_unknown-character-hd-png-download.png" 
                  className="img-fluid w-25 d-inline" 
-                 alt="unknown hero" 
+                 alt="unknown hero"
                  style={{'objectFit': 'cover'}}/>
             <div className="card-body">
                 

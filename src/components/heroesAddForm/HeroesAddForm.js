@@ -21,22 +21,28 @@ import { useHttp } from '../../hooks/http.hook';
 
 const HeroesAddForm = () => {
 
-    const {filters} = useSelector(state => state);
+    const {filters, filtersLoadinStatus} = useSelector(state => state.filters);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
-    const renderFilters = (filters) => {
-        return filters.map(({value, text}) => {
-            if (value === 'all') {
-                return;
-            }
-            return (
-                <option key={uuidv4()} value={value}>{text}</option>
-            )
-        })
+    const renderFilters = (filters, status) => {
+        if (status === 'loading') {
+            return <option>Загрузка элементов</option>
+        } else if (status === 'error') {
+            return <option>Ошибка загрузки</option>
+        }
+
+        if (filters && filters.length > 0) {
+            return filters.map(({value, text}) => {
+                // eslint-disable-next-line
+                if (value === 'all') return;
+                
+                return <option key={uuidv4()} value={value}>{text}</option>
+            })
+        }
     }
 
-    const options = renderFilters(filters);
+    const options = renderFilters(filters, filtersLoadinStatus);
 
     return (
         <div className="border p-4 shadow-lg rounded">
