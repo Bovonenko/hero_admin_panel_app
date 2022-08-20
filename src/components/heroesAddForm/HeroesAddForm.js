@@ -1,3 +1,4 @@
+import { useHttp } from '../../hooks/http.hook';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -5,8 +6,7 @@ import * as Yup from 'yup';
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { heroCreated } from '../../actions';
-import { useHttp } from '../../hooks/http.hook';
+import { heroCreated } from '../heroesList/heroesSlice';
 
 
 // Задача для этого компонента:
