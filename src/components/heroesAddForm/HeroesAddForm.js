@@ -1,3 +1,4 @@
+import { useHttp } from '../../hooks/http.hook';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -5,38 +6,32 @@ import * as Yup from 'yup';
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { heroCreated } from '../../actions';
-import { useHttp } from '../../hooks/http.hook';
-
-
-// Задача для этого компонента:
-// Реализовать создание нового героя с введенными данными. Он должен попадать
-// в общее состояние и отображаться в списке + фильтроваться
-// Уникальный идентификатор персонажа можно сгенерировать через uiid
-// Усложненная задача:
-// Персонаж создается и в файле json при помощи метода POST
-// Дополнительно:
-// Элементы <option></option> желательно сформировать на базе
-// данных из фильтров
+import { heroCreated } from '../heroesList/heroesSlice';
 
 const HeroesAddForm = () => {
 
-    const {filters} = useSelector(state => state);
+    const {filters, filtersLoadinStatus} = useSelector(state => state.filters);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
-    const renderFilters = (filters) => {
-        return filters.map(({value, text}) => {
-            if (value === 'all') {
-                return;
-            }
-            return (
-                <option key={uuidv4()} value={value}>{text}</option>
-            )
-        })
+    const renderFilters = (filters, status) => {
+        if (status === 'loading') {
+            return <option>Загрузка элементов</option>
+        } else if (status === 'error') {
+            return <option>Ошибка загрузки</option>
+        }
+
+        if (filters && filters.length > 0) {
+            return filters.map(({value, text}) => {
+                // eslint-disable-next-line
+                if (value === 'all') return;
+                
+                return <option key={uuidv4()} value={value}>{text}</option>
+            })
+        }
     }
 
-    const options = renderFilters(filters);
+    const options = renderFilters(filters, filtersLoadinStatus);
 
     return (
         <div className="border p-4 shadow-lg rounded">

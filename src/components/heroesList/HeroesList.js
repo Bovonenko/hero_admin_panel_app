@@ -1,29 +1,44 @@
 import {useHttp} from '../../hooks/http.hook';
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { createSelector } from '@reduxjs/toolkit';
 
-import { heroesFetching, heroesFetched, heroesFetchingError, heroDeleted } from '../../actions';
+import { heroDeleted, fetchHeroes } from './heroesSlice';
 
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import './heroesList.scss';
-// Задача для этого компонента:
-// При клике на "крестик" идет удаление персонажа из общего состояния
-// Усложненная задача:
-// Удаление идет и с json файла при помощи метода DELETE
 
 const HeroesList = () => {
-    const {visibleHeroes, heroesLoadingStatus} = useSelector(state => state);
+
+    const filteredHeroesSelector = createSelector(
+        (state) => state.filters.activeFilter,
+        (state) => state.heroes.heroes,
+        (filter, heroes) => {
+            if (filter === 'all') {
+                return heroes;
+            } else {
+                return heroes.filter(item => item.element === filter)
+            }
+        } 
+    )
+
+    // const filteredHeroes = useSelector(state => {
+    //     if (state.filters.activeFilter === 'all') {
+    //         console.log('render')
+    //         return state.heroes.heroes;
+    //     } else {
+    //         return state.heroes.heroes.filter(item => item.element === state.filters.activeFilter)
+    //     }
+    // })
+    const filteredHeroes = useSelector(filteredHeroesSelector);
+    const heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
     useEffect(() => {
-        dispatch(heroesFetching()); 
-        request("https://my-cool-dbase.herokuapp.com/heroes")
-            .then(data => dispatch(heroesFetched(data)))
-            .catch(() => dispatch(heroesFetchingError()))
+        dispatch(fetchHeroes()); 
 
         // eslint-disable-next-line
     }, []);
@@ -65,7 +80,7 @@ const HeroesList = () => {
         })
     }
 
-    const items = renderHeroesList(visibleHeroes);
+    const items = renderHeroesList(filteredHeroes);
     return (
         <TransitionGroup component='ul'>
             {items}
@@ -74,21 +89,3 @@ const HeroesList = () => {
 }
 
 export default HeroesList;
-
-
-    // const filterPost = (items, filter) => {
-    //     switch (filter) {
-    //         case 'fire': 
-    //             return items.filter(item => item.element === filter)
-    //         case 'water':
-    //             return items.filter(item => item.element === filter)
-    //         case 'wind': 
-    //             return items.filter(item => item.element === filter)
-    //         case 'earth':
-    //             return items.filter(item => item.element === filter)
-    //         default: 
-    //             return items
-    //     }
-    // }
-
-    // const visibleData = filterPost(heroes, filter)
