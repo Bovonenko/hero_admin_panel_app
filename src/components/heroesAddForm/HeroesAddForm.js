@@ -1,16 +1,18 @@
 import { useHttp } from '../../hooks/http.hook';
 import { useDispatch, useSelector } from 'react-redux';
+import store from '../../store';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import { v4 as uuidv4 } from 'uuid';
 
+import { selectAll } from '../heroesFilters/filtersSlice';
 import { heroCreated } from '../heroesList/heroesSlice';
 
 const HeroesAddForm = () => {
-
-    const {filters, filtersLoadinStatus} = useSelector(state => state.filters);
+    const filters = selectAll(store.getState());
+    const {filtersLoadinStatus} = useSelector(state => state.filters);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
